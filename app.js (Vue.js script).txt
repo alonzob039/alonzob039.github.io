@@ -1,0 +1,21 @@
+// Load data from JSON file
+const fetchData = async () => {
+    const response = await fetch('path/to/tickets1.json');
+    const data = await response.json();
+    return data;
+};
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        tickets: [], // All data
+        filteredTickets: [] // Filtered data for 25mph or more over
+    },
+    async mounted() {
+        // Load all data when the component is mounted
+        this.tickets = await fetchData();
+        
+        // Filter data for 25mph or more over
+        this.filteredTickets = this.tickets.filter(ticket => ticket.actual_speed >= 25);
+    }
+});
